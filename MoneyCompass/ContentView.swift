@@ -6,34 +6,28 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \TransactionLog.timestamp, ascending: true)],
-        animation: .default
-    )
-    private var transactionLogs: FetchedResults<TransactionLog>
-    
-    private let currencyFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        return formatter
-    }()
-    
+    @State private var selectedTab = 0
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(transactionLogs) { transaction in
-                    VStack(alignment: .leading) {
-                        Text(transaction.activityTitle!)
-                        Text(currencyFormatter.string(from: transaction.amount as NSNumber)!)
-                    }
+        TabView(selection: $selectedTab) {
+            SummaryView()
+                .tabItem {
+                    Text("Summary")
+                    Image(systemName: "chart.bar.fill")
                 }
-            }
+            Text("Add new transaction")
+                .tabItem {
+                    Text("Add")
+                    Image(systemName: "plus.circle.fill")
+                }
+            Text("Analysis View")
+                .tabItem {
+                    Text("Analysis")
+                    Image(systemName: "chart.pie")
+                }
         }
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 

@@ -13,6 +13,8 @@
 		0477EFC82B204923006968C3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0477EFC72B204923006968C3 /* Preview Assets.xcassets */; };
 		0477EFCA2B204923006968C3 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFC92B204923006968C3 /* Persistence.swift */; };
 		0477EFCD2B204923006968C3 /* MoneyCompass.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFCB2B204923006968C3 /* MoneyCompass.xcdatamodeld */; };
+		0477EFD52B2374B5006968C3 /* RecentTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFD42B2374B5006968C3 /* RecentTransactions.swift */; };
+		0477EFD72B237643006968C3 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFD62B237643006968C3 /* SummaryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		0477EFC72B204923006968C3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0477EFC92B204923006968C3 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		0477EFCC2B204923006968C3 /* MoneyCompass.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MoneyCompass.xcdatamodel; sourceTree = "<group>"; };
+		0477EFD42B2374B5006968C3 /* RecentTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTransactions.swift; sourceTree = "<group>"; };
+		0477EFD62B237643006968C3 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +59,9 @@
 		0477EFBF2B204921006968C3 /* MoneyCompass */ = {
 			isa = PBXGroup;
 			children = (
+				0477EFD32B237491006968C3 /* Transaction */,
 				0477EFC02B204921006968C3 /* MoneyCompassApp.swift */,
+				0477EFD62B237643006968C3 /* SummaryView.swift */,
 				0477EFC22B204921006968C3 /* ContentView.swift */,
 				0477EFC42B204923006968C3 /* Assets.xcassets */,
 				0477EFC92B204923006968C3 /* Persistence.swift */,
@@ -71,6 +77,14 @@
 				0477EFC72B204923006968C3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0477EFD32B237491006968C3 /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				0477EFD42B2374B5006968C3 /* RecentTransactions.swift */,
+			);
+			path = Transaction;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,9 +158,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0477EFCA2B204923006968C3 /* Persistence.swift in Sources */,
+				0477EFD52B2374B5006968C3 /* RecentTransactions.swift in Sources */,
 				0477EFC32B204921006968C3 /* ContentView.swift in Sources */,
 				0477EFC12B204921006968C3 /* MoneyCompassApp.swift in Sources */,
 				0477EFCD2B204923006968C3 /* MoneyCompass.xcdatamodeld in Sources */,
+				0477EFD72B237643006968C3 /* SummaryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
