@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23B92" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BudgetTarget" representedClassName="BudgetTarget" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="targetDescription" optional="YES" attributeType="String"/>
+        <attribute name="targetName" optional="YES" attributeType="String"/>
+        <relationship name="budgetlog_fk" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransactionLog" inverseName="budget_fk" inverseEntity="TransactionLog"/>
     </entity>
-    <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
-    </elements>
+    <entity name="TransactionLog" representedClassName="TransactionLog" syncable="YES" codeGenerationType="class">
+        <attribute name="activityDescription" optional="YES" attributeType="String"/>
+        <attribute name="activityTitle" optional="YES" attributeType="String"/>
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="budget_fk" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BudgetTarget" inverseName="budgetlog_fk" inverseEntity="BudgetTarget"/>
+    </entity>
 </model>
