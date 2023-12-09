@@ -9,13 +9,20 @@ import SwiftUI
 
 struct SummaryView: View {
     @State private var showProfileSettings = false
+    private var firstName: String {
+        if let name = UserDefaults.standard.string(forKey: "firstName") {
+            return name
+        } else {
+            return "User" // Default value if first name is not set in UserDefaults
+        }
+    }
     
     var body: some View {
         VStack() {
             // we can't use navigationTitle as the profile settings
             // button will be pushed to top right of the screen
             HStack {
-                Text("Hello, test")
+                Text("Hello, \(firstName)")
                     .font(.largeTitle.bold())
                 Spacer()
                 Button {

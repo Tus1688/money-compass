@@ -12,7 +12,7 @@ struct RecentTransactions: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \TransactionLog.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \TransactionLog.timestamp, ascending: false)],
         animation: .default
     )
     private var transactionLogs: FetchedResults<TransactionLog>
@@ -26,13 +26,16 @@ struct RecentTransactions: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(transactionLogs) { transaction in
-                    VStack(alignment: .leading) {
-                        Text(transaction.activityTitle!)
-                        Text(currencyFormatter.string(from: transaction.amount as NSNumber)!)
+                Section(header: Text("Recent Transaction")) {
+                    ForEach(transactionLogs) { transaction in
+                        VStack(alignment: .leading) {
+                            Text(transaction.activityTitle!)
+                            Text(currencyFormatter.string(from: transaction.amount as NSNumber)!)
+                        }
                     }
                 }
             }
+//            .listStyle(.plain)
         }
     }
 }
