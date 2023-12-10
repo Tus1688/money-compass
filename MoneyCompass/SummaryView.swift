@@ -9,13 +9,8 @@ import SwiftUI
 
 struct SummaryView: View {
     @State private var showProfileSettings = false
-    private var firstName: String {
-        if let name = UserDefaults.standard.string(forKey: "firstName") {
-            return name
-        } else {
-            return "User" // Default value if first name is not set in UserDefaults
-        }
-    }
+    @State private var firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
+    @State private var lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
     
     var body: some View {
         VStack() {
@@ -41,8 +36,10 @@ struct SummaryView: View {
         }
         .sheet(isPresented: $showProfileSettings) {
             NavigationStack {
-                Text("Profile view")
+                ProfileView(firstName: $firstName, lastName: $lastName)
                     .navigationBarItems(trailing: Button("Done") {
+                        UserDefaults.standard.set(firstName, forKey: "firstName")
+                        UserDefaults.standard.set(lastName, forKey: "lastName")
                         showProfileSettings = false
                     })
             }

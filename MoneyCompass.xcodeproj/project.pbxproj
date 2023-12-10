@@ -18,6 +18,7 @@
 		0477EFD92B2455E9006968C3 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFD82B2455E9006968C3 /* OnBoardingView.swift */; };
 		0477EFDC2B2456EC006968C3 /* OnBoardingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFDB2B2456EC006968C3 /* OnBoardingCardView.swift */; };
 		0477EFDE2B246934006968C3 /* FillProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFDD2B246934006968C3 /* FillProfileView.swift */; };
+		0477EFE02B258EE8006968C3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFDF2B258EE8006968C3 /* ProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		0477EFD82B2455E9006968C3 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		0477EFDB2B2456EC006968C3 /* OnBoardingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingCardView.swift; sourceTree = "<group>"; };
 		0477EFDD2B246934006968C3 /* FillProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillProfileView.swift; sourceTree = "<group>"; };
+		0477EFDF2B258EE8006968C3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				0477EFDA2B2456D2006968C3 /* Onboarding */,
 				0477EFD32B237491006968C3 /* Transaction */,
 				0477EFC02B204921006968C3 /* MoneyCompassApp.swift */,
+				0477EFDF2B258EE8006968C3 /* ProfileView.swift */,
 				0477EFD62B237643006968C3 /* SummaryView.swift */,
 				0477EFC22B204921006968C3 /* ContentView.swift */,
 				0477EFC42B204923006968C3 /* Assets.xcassets */,
@@ -176,6 +179,7 @@
 			files = (
 				0477EFCA2B204923006968C3 /* Persistence.swift in Sources */,
 				0477EFD52B2374B5006968C3 /* RecentTransactions.swift in Sources */,
+				0477EFE02B258EE8006968C3 /* ProfileView.swift in Sources */,
 				0477EFDE2B246934006968C3 /* FillProfileView.swift in Sources */,
 				0477EFD92B2455E9006968C3 /* OnBoardingView.swift in Sources */,
 				0477EFDC2B2456EC006968C3 /* OnBoardingCardView.swift in Sources */,
