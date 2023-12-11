@@ -21,18 +21,28 @@ struct ContentView: View {
             TabView(selection: $selectedTab) {
                 SummaryView()
                     .tabItem {
-                        Text("Summary")
+                        Text("Home")
                         Image(systemName: "chart.bar.fill")
-                    }
-                Text("Add new transaction")
-                    .tabItem {
-                        Text("Add")
-                        Image(systemName: "plus.circle.fill")
                     }
                 Text("Analysis View")
                     .tabItem {
                         Text("Analysis")
                         Image(systemName: "chart.pie")
+                    }
+                Text("Add new transaction")
+                    .tabItem {
+                        Image(systemName: "plus.circle")
+                    }
+               
+                Text("Transaction View")
+                    .tabItem {
+                        Text("Transaction")
+                        Image(systemName: "tray.2")
+                    }
+                Text("Profile View")
+                    .tabItem {
+                        Text("Profile")
+                        Image(systemName: "person.crop.circle")
                     }
             }
             .edgesIgnoringSafeArea(.bottom)
