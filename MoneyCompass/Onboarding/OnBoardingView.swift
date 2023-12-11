@@ -45,7 +45,6 @@ struct OnBoardingView: View {
                 }
             }
             .tabViewStyle(PageTabViewStyle())
-            
         }
     }
 }
