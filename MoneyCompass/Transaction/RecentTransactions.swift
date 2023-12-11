@@ -42,13 +42,11 @@ struct RecentTransactions: View {
                         Text("Recent Transaction")
                             .font(.title2)
                             .fontWeight(.bold)
-                            .foregroundStyle(Color.black)
                         
                         Spacer()
                         Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                             Image(systemName: "ellipsis.circle")
                                 .font(.title2)
-                                .foregroundColor(.black)
                         })
                     }) {
                         

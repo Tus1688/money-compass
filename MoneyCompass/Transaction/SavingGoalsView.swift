@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CoreData
 struct CircularProgressView: View {
     let progress: Double
     var body: some View {
@@ -38,28 +38,12 @@ struct CircularProgressView: View {
     }
 }
 
-struct Goals: Identifiable {
-    var id : String {
-        self.name
-    }
-    var name: String
-    var price: Double
-    var progress: Double
-}
-
 struct SavingGoalsView: View {
-    @State var progress: Double = 1
-    @State var goals: [Goals] = [
-        Goals(name: "Sepatu", price: 2140000, progress: 0.5),
-        Goals(name: "Sepatu", price: 2140000, progress: 0.5),
-        Goals(name: "Sepatu", price: 2140000, progress: 0.5),
-        Goals(name: "Sepatu", price: 2140000, progress: 0.5),
-        Goals(name: "Sepatu", price: 2140000, progress: 0.5),
-        Goals(name: "Sepatu", price: 2140000, progress: 0.5),
-        Goals(name: "Sepatu", price: 2140000, progress: 0.5),
-        Goals(name: "Sepatu", price: 2140000, progress: 0.5),
-        Goals(name: "Sepatu", price: 2140000, progress: 0.5),
-    ]
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(
+        sortDescriptors: [SortDescriptor<SavingGoals>(\.targetName)],
+        animation: .default)
+    private var goals: FetchedResults<SavingGoals>
     var body: some View {
         NavigationStack {
             List {
@@ -67,37 +51,41 @@ struct SavingGoalsView: View {
                     Text("Saving Goals")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.black)
-                    
                     Spacer()
                     Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                         Image(systemName: "ellipsis.circle")
                             .font(.title2)
-                            .foregroundColor(.black)
                     })
                 }) {
-                    ScrollView(.horizontal, showsIndicators: false){
-                        HStack{
-                            ForEach(goals, id: \.id) { goal in
-                                VStack(){
-                                    Text(goal.name)
-                                        .frame(alignment: .leading)
-                                    Text("Rp \(goal.price, specifier: "%.0f")")
-                                        .font(.caption)
-                                        .fontWeight(.light)
-                                    
-                                    CircularProgressView(progress: goal.progress)
+                    if (goals.count == 0) {
+                        Text("No Saving Goals Yet!")
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    } else {
+                        ScrollView(.horizontal, showsIndicators: false){
+                            HStack{
+                                ForEach(goals) { goal in
+                                    VStack(){
+                                        Text(goal.targetName!)
+                                            .frame(alignment: .leading)
+                                        Text("Rp \(goal.amount, specifier: "%.0f")")
+                                            .font(.caption)
+                                            .fontWeight(.light)
+//                                        Text("\(goal., specifier: "%.0f")")
+                                        
+                                        //                                    CircularProgressView(progress: goal.progress)
+                                    }
+                                    .frame(width: 80, height: 120)
+                                    .padding(3)
+                                    .background(Color.gray.opacity(0.1))
+                                    .cornerRadius(8)
                                 }
-                                .frame(width: 80, height: 120)
-                                .padding(3)
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(8)
+                                
                             }
-                            
                         }
                     }
-                    .listRowSeparator(.hidden)
                 }
+                .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
         }

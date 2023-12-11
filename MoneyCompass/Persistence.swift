@@ -21,7 +21,7 @@ struct PersistenceController {
         newTransaction.activityTitle = "Bank Account Deposit"
         newTransaction.activityDescription = "Initial deposit to your bank account"
         
-        let newBudget = BudgetTarget(context: viewContext)
+        let newBudget = SavingGoals(context: viewContext)
         newBudget.id = UUID()
         newBudget.amount = 100000
         newBudget.targetName = "Emergency Fund"
@@ -34,7 +34,7 @@ struct PersistenceController {
         transactionForBudget.activityTitle = "Bank Deposit for Emergency Fund"
         transactionForBudget.activityDescription = "Just saving up"
         transactionForBudget.budget_fk = newBudget
-        
+
         do {
             try viewContext.save()
         } catch {
