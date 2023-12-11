@@ -85,7 +85,6 @@ struct FillProfileView: View {
             let defaults = UserDefaults.standard
             defaults.set(firstName, forKey: "firstName")
             defaults.set(lastName, forKey: "lastName")
-            defaults.set(balance, forKey: "balance")
             // force UserDefaults to save immediately
             defaults.synchronize()
             onboardingCompleted()

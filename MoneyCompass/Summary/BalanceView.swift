@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import CoreData
 import AnimateNumberText
 
 struct BalanceView: View {
-    @State private var ShowBalance: Bool = true
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(
+        sortDescriptors: [SortDescriptor<TransactionLog>(\.timestamp)],
+        animation: .default)
+    private var transactionLogs: FetchedResults<TransactionLog>
+    @State private var ShowBalance: Bool = false
     @State private var TextColor: Color = .black
     var numberFormatter: NumberFormatter {
         let numberFormatter = NumberFormatter()
@@ -18,17 +24,9 @@ struct BalanceView: View {
         numberFormatter.maximumFractionDigits = 1
         return numberFormatter
     }
-    @State private var balance: Double
+    @State private var balance: Double = 0
     
-    init() {
-        // Convert the string from UserDefaults to a double
-        if let storedBalanceString = UserDefaults.standard.string(forKey: "balance"),
-           let storedBalance = Double(storedBalanceString) {
-            _balance = State(initialValue: storedBalance)
-        } else {
-            _balance = State(initialValue: 0) // Default value if conversion fails
-        }
-    }
+    
     
     var body: some View {
         ZStack{
@@ -38,16 +36,21 @@ struct BalanceView: View {
                         Text("Balance")
                             .font(.title3)
                             .foregroundColor(.black)
-                        Image(systemName: ShowBalance ? "eye.slash" : "eye")
+                        Image(systemName: ShowBalance ? "eye" : "eye.slash")
                             .onTapGesture {
                                 ShowBalance.toggle()
                             }
                             .animation(Animation.easeOut, value: ShowBalance)
                     }
-                    AnimateNumberText(value: $balance,
-                                      textColor: $TextColor,
-                                      numberFormatter:                     numberFormatter
-                    )
+                    if (ShowBalance){
+                        AnimateNumberText(value: $balance,
+                                          textColor: $TextColor,
+                                          numberFormatter:                     numberFormatter
+                        )
+                    } else {
+                        Text("********")
+                            .font(.largeTitle)
+                    }
                 }
                 Spacer()
                 Image(systemName: "tray.full")
@@ -62,9 +65,18 @@ struct BalanceView: View {
         .background(Color.gray.opacity(0.5))
         .cornerRadius(10)
         .padding()
+        .onAppear(perform: {
+            var totalAmount: Double = 0
+            for transaction in transactionLogs {
+                totalAmount += transaction.amount
+            }
+            balance = totalAmount
+            if (balance < 0) {
+                TextColor = .red
+            } else {
+                TextColor = .black
+            }
+        })
     }
-}
-
-#Preview {
-    BalanceView()
+    
 }
