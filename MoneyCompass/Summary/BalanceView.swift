@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreData
-import AnimateNumberText
 
 struct BalanceView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -16,7 +15,6 @@ struct BalanceView: View {
         animation: .default)
     private var transactionLogs: FetchedResults<TransactionLog>
     @State private var ShowBalance: Bool = false
-    @State private var TextColor: Color = .black
     var numberFormatter: NumberFormatter {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
@@ -35,7 +33,6 @@ struct BalanceView: View {
                     HStack{
                         Text("Balance")
                             .font(.title3)
-                            .foregroundColor(.black)
                         Image(systemName: ShowBalance ? "eye" : "eye.slash")
                             .onTapGesture {
                                 ShowBalance.toggle()
@@ -43,9 +40,8 @@ struct BalanceView: View {
                             .animation(Animation.easeOut, value: ShowBalance)
                     }
                     if (ShowBalance){
-                        AnimateNumberText(value: $balance,
-                                          textColor: $TextColor,
-                                          numberFormatter:                     numberFormatter
+                        AnimatedNumbersView(value: $balance,
+                                            numberFormatter:                     numberFormatter
                         )
                     } else {
                         Text("********")
@@ -71,11 +67,6 @@ struct BalanceView: View {
                 totalAmount += transaction.amount
             }
             balance = totalAmount
-            if (balance < 0) {
-                TextColor = .red
-            } else {
-                TextColor = .black
-            }
         })
     }
     

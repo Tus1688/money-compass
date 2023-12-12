@@ -33,7 +33,6 @@ struct CircularProgressView: View {
             Text("\(progress * 100, specifier: "%.0f")%")
                 .fontWeight(.semibold)
         }
-        .frame(width: .infinity, height: .infinity)
         .padding(3)
     }
 }
@@ -44,19 +43,19 @@ struct SavingGoalsView: View {
         sortDescriptors: [SortDescriptor<SavingGoals>(\.targetName)],
         animation: .default)
     private var goals: FetchedResults<SavingGoals>
+    
+    @FetchRequest(
+        sortDescriptors: [SortDescriptor<TransactionLog>(\.timestamp)],
+        animation: .default)
+    private var transactionLogs: FetchedResults<TransactionLog>
     var body: some View {
         NavigationStack {
             List {
-                Section(header: HStack{
-                    Text("Saving Goals")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    Spacer()
-                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                        Image(systemName: "ellipsis.circle")
-                            .font(.title2)
-                    })
-                }) {
+                Section(header:
+                            Text("Saving Goals")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                ) {
                     if (goals.count == 0) {
                         Text("No Saving Goals Yet!")
                             .font(.subheadline)
@@ -71,9 +70,9 @@ struct SavingGoalsView: View {
                                         Text("Rp \(goal.amount, specifier: "%.0f")")
                                             .font(.caption)
                                             .fontWeight(.light)
-//                                        Text("\(goal., specifier: "%.0f")")
+                                        //                                        Text("\(goal., specifier: "%.0f")")
                                         
-                                        //                                    CircularProgressView(progress: goal.progress)
+                                        CircularProgressView(progress: goal.progress)
                                     }
                                     .frame(width: 80, height: 120)
                                     .padding(3)
@@ -88,6 +87,18 @@ struct SavingGoalsView: View {
                 .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
+        }
+        .onAppear(){
+            // join transaction log and saving goals, check if savinggoals's budgetlog_fk is in transaction log's budget_fk and update progress
+            for goal in goals {
+                var total = 0.0
+                for log in transactionLogs {
+                    if (log.budget_fk == goal.budgetlog_fk) {
+                        total += log.amount + 1000
+                    }
+                }
+                goal.progress = total / goal.amount
+            }
         }
     }
 }

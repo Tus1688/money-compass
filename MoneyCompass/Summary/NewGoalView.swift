@@ -13,7 +13,7 @@ struct NewGoalView: View {
     @State private var targetName: String = ""
     @State private var targetDescription: String = ""
     @State private var amount: Double = 0
-    
+
     var body: some View {
         NavigationView {
             Form {
