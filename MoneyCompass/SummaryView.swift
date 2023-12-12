@@ -36,10 +36,8 @@ struct SummaryView: View {
         }
         .sheet(isPresented: $showProfileSettings) {
             NavigationStack {
-                ProfileView(firstName: $firstName, lastName: $lastName)
+                ProfileView()
                     .navigationBarItems(trailing: Button("Done") {
-                        UserDefaults.standard.set(firstName, forKey: "firstName")
-                        UserDefaults.standard.set(lastName, forKey: "lastName")
                         showProfileSettings = false
                     })
             }

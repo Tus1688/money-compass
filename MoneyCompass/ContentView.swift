@@ -41,7 +41,7 @@ struct ContentView: View {
                         Text("Transaction")
                         Image(systemName: "tray.2")
                     }.tag(3)
-                Text("Profile View")
+                ProfileView()
                     .tabItem {
                         Text("Profile")
                         Image(systemName: "person.crop.circle")
