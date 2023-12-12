@@ -3,6 +3,7 @@
     <entity name="SavingGoals" representedClassName="SavingGoals" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="progress" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="targetDescription" optional="YES" attributeType="String"/>
         <attribute name="targetName" optional="YES" attributeType="String"/>
         <relationship name="budgetlog_fk" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransactionLog" inverseName="budget_fk" inverseEntity="TransactionLog"/>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041125B12B27DAF600287DEA /* AnimatedNumbersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041125B02B27DAF600287DEA /* AnimatedNumbersView.swift */; };
 		0477EFC12B204921006968C3 /* MoneyCompassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFC02B204921006968C3 /* MoneyCompassApp.swift */; };
 		0477EFC32B204921006968C3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFC22B204921006968C3 /* ContentView.swift */; };
 		0477EFC52B204923006968C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0477EFC42B204923006968C3 /* Assets.xcassets */; };
@@ -20,11 +21,11 @@
 		0477EFDE2B246934006968C3 /* FillProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFDD2B246934006968C3 /* FillProfileView.swift */; };
 		04C901C72B24D579001BDD53 /* BalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C901C62B24D579001BDD53 /* BalanceView.swift */; };
 		04C901C92B24EB33001BDD53 /* SavingGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C901C82B24EB33001BDD53 /* SavingGoalsView.swift */; };
-		04DDF77B2B259C7600BD84D5 /* AnimateNumberText in Frameworks */ = {isa = PBXBuildFile; productRef = 04DDF77A2B259C7600BD84D5 /* AnimateNumberText */; };
 		04E2A4CF2B26B42C002B4E83 /* NewGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E2A4CE2B26B42C002B4E83 /* NewGoalView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		041125B02B27DAF600287DEA /* AnimatedNumbersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedNumbersView.swift; sourceTree = "<group>"; };
 		0477EFBD2B204921006968C3 /* MoneyCompass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyCompass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0477EFC02B204921006968C3 /* MoneyCompassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyCompassApp.swift; sourceTree = "<group>"; };
 		0477EFC22B204921006968C3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,7 +48,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04DDF77B2B259C7600BD84D5 /* AnimateNumberText in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,8 +57,12 @@
 		046426002B26A08300176182 /* Summary */ = {
 			isa = PBXGroup;
 			children = (
+				0477EFD42B2374B5006968C3 /* RecentTransactions.swift */,
+				04C901C82B24EB33001BDD53 /* SavingGoalsView.swift */,
+				04E2A4CE2B26B42C002B4E83 /* NewGoalView.swift */,
 				04C901C62B24D579001BDD53 /* BalanceView.swift */,
 				0477EFD62B237643006968C3 /* SummaryView.swift */,
+				041125B02B27DAF600287DEA /* AnimatedNumbersView.swift */,
 			);
 			path = Summary;
 			sourceTree = "<group>";
@@ -82,7 +86,6 @@
 		0477EFBF2B204921006968C3 /* MoneyCompass */ = {
 			isa = PBXGroup;
 			children = (
-				04E2A4CD2B26B410002B4E83 /* New Goal */,
 				046426002B26A08300176182 /* Summary */,
 				0477EFDA2B2456D2006968C3 /* Onboarding */,
 				0477EFD32B237491006968C3 /* Transaction */,
@@ -107,8 +110,6 @@
 		0477EFD32B237491006968C3 /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
-				0477EFD42B2374B5006968C3 /* RecentTransactions.swift */,
-				04C901C82B24EB33001BDD53 /* SavingGoalsView.swift */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -121,14 +122,6 @@
 				0477EFDD2B246934006968C3 /* FillProfileView.swift */,
 			);
 			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		04E2A4CD2B26B410002B4E83 /* New Goal */ = {
-			isa = PBXGroup;
-			children = (
-				04E2A4CE2B26B42C002B4E83 /* NewGoalView.swift */,
-			);
-			path = "New Goal";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,7 +141,6 @@
 			);
 			name = MoneyCompass;
 			packageProductDependencies = (
-				04DDF77A2B259C7600BD84D5 /* AnimateNumberText */,
 			);
 			productName = MoneyCompass;
 			productReference = 0477EFBD2B204921006968C3 /* MoneyCompass.app */;
@@ -179,7 +171,6 @@
 			);
 			mainGroup = 0477EFB42B204921006968C3;
 			packageReferences = (
-				04DDF7792B259C7600BD84D5 /* XCRemoteSwiftPackageReference "AnimateNumberText" */,
 			);
 			productRefGroup = 0477EFBE2B204921006968C3 /* Products */;
 			projectDirPath = "";
@@ -219,6 +210,7 @@
 				0477EFCD2B204923006968C3 /* MoneyCompass.xcdatamodeld in Sources */,
 				0477EFD72B237643006968C3 /* SummaryView.swift in Sources */,
 				04C901C92B24EB33001BDD53 /* SavingGoalsView.swift in Sources */,
+				041125B12B27DAF600287DEA /* AnimatedNumbersView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +344,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MoneyCompass/Preview Content\"";
+				DEVELOPMENT_TEAM = WC47Q2R2L7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -380,6 +373,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MoneyCompass/Preview Content\"";
+				DEVELOPMENT_TEAM = WC47Q2R2L7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -422,25 +416,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		04DDF7792B259C7600BD84D5 /* XCRemoteSwiftPackageReference "AnimateNumberText" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/swift-man/AnimateNumberText.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.5.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		04DDF77A2B259C7600BD84D5 /* AnimateNumberText */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 04DDF7792B259C7600BD84D5 /* XCRemoteSwiftPackageReference "AnimateNumberText" */;
-			productName = AnimateNumberText;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		0477EFCB2B204923006968C3 /* MoneyCompass.xcdatamodeld */ = {
