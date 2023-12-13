@@ -59,7 +59,6 @@ struct FillProfileView: View {
         }
     }
     
-    //  the initial balance could be minus (debt)
     func handleInsertData() {
         if firstName.isEmpty || lastName.isEmpty || initialBalance.isEmpty {
             alertMessage = "Please fill in all fields"
@@ -77,6 +76,7 @@ struct FillProfileView: View {
         newTransaction.id = UUID()
         newTransaction.activityTitle = "Initial balance"
         newTransaction.activityDescription = "Inserted on application onboarding"
+        //  the initial balance could be minus (debt)
         newTransaction.amount = balance
         newTransaction.timestamp = Date()
         
