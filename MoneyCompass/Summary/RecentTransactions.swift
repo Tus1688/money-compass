@@ -49,28 +49,33 @@ struct RecentTransactions: View {
                                 .font(.title2)
                         })
                     }) {
-                        
-                        ForEach(transactionLogs) { transaction in
-                            HStack{
-                                VStack(alignment: .leading) {
-                                    Text(transaction.activityTitle!)
-                                        .font(.subheadline)
-                                    Text(transaction.activityDescription!)
-                                        .font(.caption)
-                                }
-                                Spacer()
-                                VStack(alignment: .trailing){
-                                    Text(currencyFormatter.string(from: transaction.amount as NSNumber)!)
-                                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                                        .font(.footnote)
-                                    Text(transaction.timestamp!.formatted())
-                                        .font(.caption)
+                        if (transactionLogs.count == 0) {
+                           
+                            Text("No Saving Goals Yet!")
+                                .font(.subheadline)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        } else {
+                            ForEach(transactionLogs) { transaction in
+                                HStack{
+                                    VStack(alignment: .leading) {
+                                        Text(transaction.activityTitle!)
+                                            .font(.subheadline)
+                                        Text(transaction.activityDescription!)
+                                            .font(.caption)
+                                    }
+                                    Spacer()
+                                    VStack(alignment: .trailing){
+                                        Text(currencyFormatter.string(from: transaction.amount as NSNumber)!)
+                                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                            .font(.footnote)
+                                        Text(transaction.timestamp!.formatted())
+                                            .font(.caption)
+                                    }
                                 }
                             }
-                            .listRowSeparator(.hidden)
                         }
-                        
                     }
+                    .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
                 

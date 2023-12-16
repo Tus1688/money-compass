@@ -35,6 +35,7 @@ struct PersistenceController {
         transactionForBudget.activityDescription = "Just saving up"
         transactionForBudget.budget_fk = newBudget
 
+        
         do {
             try viewContext.save()
         } catch {

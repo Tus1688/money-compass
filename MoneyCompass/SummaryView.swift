@@ -33,6 +33,7 @@ struct SummaryView: View {
             .padding(.horizontal)
             
             RecentTransactions()
+            SavingGoalsView()
         }
         .sheet(isPresented: $showProfileSettings) {
             NavigationStack {
