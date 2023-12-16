@@ -35,7 +35,7 @@ struct ContentView: View {
                     .tabItem {
                         Image(systemName: "plus.circle")
                     }.tag(2)
-                TransactionView()
+                SavingsView()
                     .tabItem {
                         Text("Transaction")
                         Image(systemName: "tray.2")
@@ -46,6 +46,7 @@ struct ContentView: View {
                         Image(systemName: "person.crop.circle")
                     }.tag(4)
             }
+            
             .onChange(of: selectedTab) { oldTab , newTab in
                 if selectedTab == 2 {
                     self.isAddNewGoalSheetPresented = true
@@ -58,6 +59,7 @@ struct ContentView: View {
                 NewGoalView()
             }
             .edgesIgnoringSafeArea(.bottom)
+            
             // development purposes only okay! (to reset userDefaults)
             //                        .onAppear {
             //                            let defaults = UserDefaults.standard

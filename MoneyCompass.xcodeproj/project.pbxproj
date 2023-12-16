@@ -23,7 +23,8 @@
 		0477EFE02B258EE8006968C3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFDF2B258EE8006968C3 /* ProfileView.swift */; };
 		048D7C442B2D935900D11F89 /* DailyExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7C432B2D935900D11F89 /* DailyExpensesView.swift */; };
 		048D7C472B2DAD1400D11F89 /* TopExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7C462B2DAD1400D11F89 /* TopExpensesView.swift */; };
-		049E2FED2B2C152800183FF0 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049E2FEC2B2C152800183FF0 /* TransactionView.swift */; };
+		048D7C4B2B2DD3DD00D11F89 /* NewSavingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7C4A2B2DD3DD00D11F89 /* NewSavingView.swift */; };
+		049E2FED2B2C152800183FF0 /* SavingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049E2FEC2B2C152800183FF0 /* SavingsView.swift */; };
 		049E2FEF2B2C153C00183FF0 /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049E2FEE2B2C153C00183FF0 /* AnalysisView.swift */; };
 		04C901C72B24D579001BDD53 /* BalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C901C62B24D579001BDD53 /* BalanceView.swift */; };
 		04C901C92B24EB33001BDD53 /* SavingGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C901C82B24EB33001BDD53 /* SavingGoalsView.swift */; };
@@ -48,7 +49,8 @@
 		0477EFDF2B258EE8006968C3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		048D7C432B2D935900D11F89 /* DailyExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyExpensesView.swift; sourceTree = "<group>"; };
 		048D7C462B2DAD1400D11F89 /* TopExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopExpensesView.swift; sourceTree = "<group>"; };
-		049E2FEC2B2C152800183FF0 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
+		048D7C4A2B2DD3DD00D11F89 /* NewSavingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSavingView.swift; sourceTree = "<group>"; };
+		049E2FEC2B2C152800183FF0 /* SavingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsView.swift; sourceTree = "<group>"; };
 		049E2FEE2B2C153C00183FF0 /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
 		04C901C62B24D579001BDD53 /* BalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceView.swift; sourceTree = "<group>"; };
 		04C901C82B24EB33001BDD53 /* SavingGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingGoalsView.swift; sourceTree = "<group>"; };
@@ -107,7 +109,7 @@
 		0477EFBF2B204921006968C3 /* MoneyCompass */ = {
 			isa = PBXGroup;
 			children = (
-				049E2FEB2B2C100900183FF0 /* Transaction */,
+				049E2FEB2B2C100900183FF0 /* Savings */,
 				049E2FEA2B2C0FF600183FF0 /* Analysis */,
 				042450F52B28B26A0070DAB8 /* Profile */,
 				046426002B26A08300176182 /* Summary */,
@@ -150,12 +152,13 @@
 			path = Analysis;
 			sourceTree = "<group>";
 		};
-		049E2FEB2B2C100900183FF0 /* Transaction */ = {
+		049E2FEB2B2C100900183FF0 /* Savings */ = {
 			isa = PBXGroup;
 			children = (
-				049E2FEC2B2C152800183FF0 /* TransactionView.swift */,
+				049E2FEC2B2C152800183FF0 /* SavingsView.swift */,
+				048D7C4A2B2DD3DD00D11F89 /* NewSavingView.swift */,
 			);
-			path = Transaction;
+			path = Savings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,10 +247,11 @@
 				048D7C472B2DAD1400D11F89 /* TopExpensesView.swift in Sources */,
 				0477EFDC2B2456EC006968C3 /* OnBoardingCardView.swift in Sources */,
 				0477EFC32B204921006968C3 /* ContentView.swift in Sources */,
+				048D7C4B2B2DD3DD00D11F89 /* NewSavingView.swift in Sources */,
 				0477EFC12B204921006968C3 /* MoneyCompassApp.swift in Sources */,
 				0477EFCD2B204923006968C3 /* MoneyCompass.xcdatamodeld in Sources */,
 				0477EFD72B237643006968C3 /* SummaryView.swift in Sources */,
-				049E2FED2B2C152800183FF0 /* TransactionView.swift in Sources */,
+				049E2FED2B2C152800183FF0 /* SavingsView.swift in Sources */,
 				042450F72B28B3450070DAB8 /* ProfileSettingView.swift in Sources */,
 				04C901C92B24EB33001BDD53 /* SavingGoalsView.swift in Sources */,
 				049E2FEF2B2C153C00183FF0 /* AnalysisView.swift in Sources */,
