@@ -26,7 +26,7 @@ struct ContentView: View {
                         Image(systemName: "chart.bar.fill")
                     }
                     .tag(0)
-                Text("Analysis View")
+                AnalysisView()
                     .tabItem {
                         Text("Analysis")
                         Image(systemName: "chart.pie")
@@ -35,8 +35,7 @@ struct ContentView: View {
                     .tabItem {
                         Image(systemName: "plus.circle")
                     }.tag(2)
-                
-                Text("Transaction View")
+                TransactionView()
                     .tabItem {
                         Text("Transaction")
                         Image(systemName: "tray.2")

@@ -23,7 +23,6 @@ extension Array where Element == TextType {
   }
 }
 
-@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
 public class AnimateNumberTextFomatter {
   let numberFormatter: NumberFormatter
   let stringFormatter: String?
@@ -53,7 +52,6 @@ public class AnimateNumberTextFomatter {
   }
 }
 
-@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
 public struct AnimatedNumbersView: View {
   private let formatter: AnimateNumberTextFomatter
   
@@ -68,7 +66,6 @@ public struct AnimatedNumbersView: View {
   @State
   private var animationRange: [TextType] = []
   
-  @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
   public init(
     font: Font = .largeTitle,
     weight: Font.Weight = .regular,
