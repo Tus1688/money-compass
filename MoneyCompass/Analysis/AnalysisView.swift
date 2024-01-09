@@ -49,5 +49,5 @@ struct AnalysisView: View {
 }
 
 #Preview {
-    AnalysisView()
+    AnalysisView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

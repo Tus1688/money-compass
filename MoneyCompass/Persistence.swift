@@ -17,9 +17,16 @@ struct PersistenceController {
         let newTransaction = TransactionLog(context: viewContext)
         newTransaction.id = UUID()
         newTransaction.amount = 500000
-        newTransaction.timestamp = Date()
+        newTransaction.timestamp = Calendar.current.date(byAdding: .day, value: -2, to: Date())
         newTransaction.activityTitle = "Bank Account Deposit"
         newTransaction.activityDescription = "Initial deposit to your bank account"
+        
+        let newTransaction2 = TransactionLog(context: viewContext)
+        newTransaction2.id = UUID()
+        newTransaction2.amount = 500000
+        newTransaction2.timestamp = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        newTransaction2.activityTitle = "Bank Account Deposit pt2"
+        newTransaction2.activityDescription = "Initial deposit to your bank account pt2"
         
         let newBudget = SavingGoals(context: viewContext)
         newBudget.id = UUID()
