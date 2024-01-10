@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 
 struct AnalysisView: View {
+    // all target - all amount
     @State private var SavingGoal = 0.0
     @State private var BudgetAndSpending = 0.0
     @Environment(\.managedObjectContext) private var viewContext
@@ -55,26 +56,31 @@ struct AnalysisView: View {
         }
     }
     
-    // TODO: need to be fixed soon
     private func fetchSavingGoalsTotalAmount() {
-        // Fetch all SavingGoals
         guard let savingGoals = fetchAllSavingGoals() else { return }
-        
-        var savingGoalsTotalAmount: [String: Double] = [:]
-        
+
+        var currentSavingGoalTotal = 0.0
+        var targetSavingGoalTotal = 0.0
+
         for savingGoal in savingGoals {
             // Access associated TransactionLogs through the inverse relationship
             if let transactionLogs = savingGoal.budgetlog_fk?.allObjects as? [TransactionLog] {
                 // Calculate the total amount for the current SavingGoal
-                let totalAmount = transactionLogs.reduce(0.0) { $0 + ($1.amount ) }
-                savingGoalsTotalAmount[savingGoal.targetName!] = totalAmount
+                let totalAmount = transactionLogs.reduce(0.0) { $0 + $1.amount }
+                currentSavingGoalTotal += totalAmount
+                // Accumulate the target amount
+                targetSavingGoalTotal += savingGoal.amount 
             }
         }
         
-        // At this point, 'savingGoalsTotalAmount' dictionary contains SavingGoals Name as keys
-        // and their respective total amounts as values
-        print(savingGoalsTotalAmount)
+        // Calculate the ratio if targetSavingGoalTotal is not zero to avoid division by zero
+        if targetSavingGoalTotal != 0.0 {
+            SavingGoal = currentSavingGoalTotal / targetSavingGoalTotal
+        } else {
+            SavingGoal = 0.0
+        }
     }
+
     
     private func fetchAllSavingGoals() -> [SavingGoals]? {
         // Assuming you have access to your managed object context
