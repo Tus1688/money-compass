@@ -7,33 +7,19 @@
 
 import SwiftUI
 import Charts
+import CoreData
+
 struct DailyExpensesView: View {
     struct ProfitByCategory {
-        let department: String
         let profit: Double
         let productCategory: String
         let day: String
     }
-
-
-    let data: [ProfitByCategory] = [
-        ProfitByCategory(department: "Food", profit: 100, productCategory: "Food", day: "Monday"),
-        ProfitByCategory(department: "Food", profit: 200, productCategory: "Food", day: "Tuesday"),
-        ProfitByCategory(department: "Food", profit: 300, productCategory: "Food", day: "Wednesday"),
-        ProfitByCategory(department: "Food", profit: 400, productCategory: "Food", day: "Thursday"),
-        ProfitByCategory(department: "Food", profit: 500, productCategory: "Food", day: "Friday"),
-        ProfitByCategory(department: "Food", profit: 600, productCategory: "Food", day: "Saturday"),
-        ProfitByCategory(department: "Food", profit: 700, productCategory: "Food", day: "Sunday"),
-        ProfitByCategory(department: "Transportation", profit: 100, productCategory: "Transportation", day: "Monday"),
-        ProfitByCategory(department: "Transportation", profit: 200, productCategory: "Transportation", day: "Tuesday"),
-        ProfitByCategory(department: "Transportation", profit: 300, productCategory: "Transportation", day: "Wednesday"),
-        ProfitByCategory(department: "Transportation", profit: 400, productCategory: "Transportation", day: "Thursday"),
-        ProfitByCategory(department: "Transportation", profit: 500, productCategory: "Transportation", day: "Friday"),
-        ProfitByCategory(department: "Transportation", profit: 600, productCategory: "Transportation", day: "Saturday"),
-        ProfitByCategory(department: "Transportation", profit: 700, productCategory: "Transportation", day: "Sunday"),
-    ]
-
-
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    @State private var data: [ProfitByCategory] = []
+    
+    
     var body: some View {
         Chart(data, id: \.day) {
             BarMark(
@@ -42,9 +28,80 @@ struct DailyExpensesView: View {
             )
             .foregroundStyle(by: .value("Product Category", $0.productCategory))
         }
+        .onAppear {
+            fetchData()
+        }
     }
+    
+    private func fetchData() {
+        let request: NSFetchRequest<TransactionLog> = TransactionLog.fetchRequest()
+        
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
+        
+        //  7 days ago
+        let dateFrom = calendar.date(byAdding: .day, value: -7, to: Date())
+        let dateTo = Date()
+        
+        let fromPredicate = NSPredicate(format: "timestamp >= %@", dateFrom! as NSDate)
+        let toPredicate = NSPredicate(format: "timestamp <= %@", dateTo as NSDate)
+        let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
+        request.predicate = datePredicate
+        
+        do {
+            let fetchedData = try viewContext.fetch(request)
+            
+            data = processData(fetchedData)
+        } catch {
+            print("Error fetching data: \(error.localizedDescription)")
+        }
+    }
+    
+    func processData(_ fetchedData: [TransactionLog]) -> [ProfitByCategory] {
+        var profitByCategory: [String: Double] = [:]
+        var profitByDate: [Date: Double] = [:] // Dictionary to hold profit by date
+        
+        let calendar = Calendar.current
+        
+        for transaction in fetchedData {
+            guard let timestamp = transaction.timestamp else { continue }
+            
+            let category = "General"
+            
+            if let existingProfit = profitByCategory[category] {
+                profitByCategory[category] = existingProfit + transaction.amount
+            } else {
+                profitByCategory[category] = transaction.amount
+            }
+            
+            let dateComponents = calendar.dateComponents([.day, .month, .year], from: timestamp)
+            if let date = calendar.date(from: dateComponents) {
+                if let existingProfit = profitByDate[date] {
+                    profitByDate[date] = existingProfit + transaction.amount
+                } else {
+                    profitByDate[date] = transaction.amount
+                }
+            }
+        }
+        
+        var processedData: [ProfitByCategory] = []
+            for (date, profit) in profitByDate {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd/MM/yyyy"
+                let dateString = dateFormatter.string(from: date)
+                
+                processedData.append(ProfitByCategory(profit: profit, productCategory: "General", day: dateString))
+            }
+            
+            processedData.sort { (first: ProfitByCategory, second: ProfitByCategory) -> Bool in
+                return first.day < second.day
+            }
+            
+            return processedData
+    }
+
 }
 
 #Preview {
-    DailyExpensesView()
+    DailyExpensesView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

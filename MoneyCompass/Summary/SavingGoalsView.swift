@@ -7,79 +7,46 @@
 
 import SwiftUI
 import CoreData
-struct CircularProgressView: View {
-    let progress: Double
-    var body: some View {
-        ZStack {
-            ZStack {
-                Circle()
-                    .stroke(
-                        Color.gray.opacity(0.3),
-                        lineWidth: 6
-                    )
-                Circle()
-                    .trim(from: 0, to: progress)
-                    .stroke(
-                        Color.accentColor,
-                        style: StrokeStyle(
-                            lineWidth: 6,
-                            lineCap: .round
-                        )
-                    )
-                    .rotationEffect(.degrees(-90))
-                    .animation(.easeOut, value: progress)
-                
-            }
-            Text("\(progress * 100, specifier: "%.0f")%")
-                .fontWeight(.semibold)
-        }
-        .padding(3)
-    }
-}
 
 struct SavingGoalsView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
-        sortDescriptors: [SortDescriptor<SavingGoals>(\.targetName)],
-        animation: .default)
-    private var goals: FetchedResults<SavingGoals>
+    struct DisplayGoal {
+        let name: String
+        let current: Double
+        let target: Double
+    }
+    @State private var data: [DisplayGoal] = []
     
-    @FetchRequest(
-        sortDescriptors: [SortDescriptor<TransactionLog>(\.timestamp)],
-        animation: .default)
-    private var transactionLogs: FetchedResults<TransactionLog>
     var body: some View {
-        NavigationStack {
+        NavigationView {
             List {
                 Section(header:
                             Text("Saving Goals")
                     .font(.title2)
                     .fontWeight(.bold)
                 ) {
-                    if (goals.count == 0) {
+                    if data.isEmpty {
                         Text("No Saving Goals Yet!")
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .center)
                     } else {
                         ScrollView(.horizontal, showsIndicators: false){
                             HStack{
-                                ForEach(goals) { goal in
+                                ForEach(data, id: \.name) { goal in
+                                    let progress = goal.current / goal.target
                                     VStack(){
-                                        Text(goal.targetName!)
+                                        Text(goal.name)
                                             .frame(alignment: .leading)
-                                        Text("Rp \(goal.amount, specifier: "%.0f")")
+                                        Text("Rp \(goal.target, specifier: "%.0f")")
                                             .font(.caption)
                                             .fontWeight(.light)
-                                        //                                        Text("\(goal., specifier: "%.0f")")
-                                        
-                                        CircularProgressView(progress: goal.progress)
+                                        CircularProgressView(progress: progress)
                                     }
                                     .frame(width: 80, height: 120)
                                     .padding(3)
                                     .background(Color.gray.opacity(0.1))
                                     .cornerRadius(8)
                                 }
-                                
                             }
                         }
                     }
@@ -87,22 +54,44 @@ struct SavingGoalsView: View {
                 .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
-        }
-        .onAppear(){
-            // join transaction log and saving goals, check if savinggoals's budgetlog_fk is in transaction log's budget_fk and update progress
-            for goal in goals {
-                var total = 0.0
-                for log in transactionLogs {
-                    if (log.budget_fk == goal.budgetlog_fk) {
-                        total += log.amount + 1000
-                    }
-                }
-                goal.progress = total / goal.amount
+            .onAppear(){
+                fetchSavingGoalsTotalAmount()
             }
+            .navigationTitle("Goals")
+        }
+    }
+    
+    private func fetchSavingGoalsTotalAmount() {
+        guard let savingGoals = fetchAllSavingGoals() else { return }
+        
+        var displayGoals: [DisplayGoal] = []
+        
+        for savingGoal in savingGoals {
+            if let transactionLogs = savingGoal.budgetlog_fk?.allObjects as? [TransactionLog] {
+                let totalAmount = transactionLogs.reduce(0.0) { $0 + ($1.amount ) }
+                let displayGoal = DisplayGoal(name: savingGoal.targetName ?? "",
+                                              current: totalAmount,
+                                              target: savingGoal.amount)
+                displayGoals.append(displayGoal)
+            }
+        }
+        
+        self.data = displayGoals
+    }
+    
+    private func fetchAllSavingGoals() -> [SavingGoals]? {
+        // Assuming you have access to your managed object context
+        let fetchRequest = NSFetchRequest<SavingGoals>(entityName: "SavingGoals")
+        do {
+            let savingGoals = try viewContext.fetch(fetchRequest)
+            return savingGoals
+        } catch {
+            print("Error fetching SavingGoals: \(error.localizedDescription)")
+            return nil
         }
     }
 }
 
 #Preview {
-    SavingGoalsView()
+    SavingGoalsView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
