@@ -20,6 +20,7 @@ struct PersistenceController {
         newTransaction.timestamp = Calendar.current.date(byAdding: .day, value: -2, to: Date())
         newTransaction.activityTitle = "Bank Account Deposit"
         newTransaction.activityDescription = "Initial deposit to your bank account"
+        newTransaction.category = "General"
         
         let newTransaction2 = TransactionLog(context: viewContext)
         newTransaction2.id = UUID()
@@ -27,6 +28,7 @@ struct PersistenceController {
         newTransaction2.timestamp = Calendar.current.date(byAdding: .day, value: -1, to: Date())
         newTransaction2.activityTitle = "Bank Account Deposit pt2"
         newTransaction2.activityDescription = "Initial deposit to your bank account pt2"
+        newTransaction2.category = "General"
         
         let newBudget = SavingGoals(context: viewContext)
         newBudget.id = UUID()
@@ -47,6 +49,7 @@ struct PersistenceController {
         transactionForBudget.activityTitle = "Bank Deposit for Emergency Fund"
         transactionForBudget.activityDescription = "Just saving up"
         transactionForBudget.budget_fk = newBudget
+        transactionForBudget.category = "Other"
         
         let transactionForBudget2 = TransactionLog(context: viewContext)
         transactionForBudget2.id = UUID()
@@ -55,6 +58,7 @@ struct PersistenceController {
         transactionForBudget2.activityTitle = "number 2"
         transactionForBudget2.activityDescription = "Just saving up"
         transactionForBudget2.budget_fk = newBudget
+        transactionForBudget2.category = "Other"
 
         
         do {
