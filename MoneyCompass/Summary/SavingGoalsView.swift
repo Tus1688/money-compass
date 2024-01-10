@@ -18,46 +18,45 @@ struct SavingGoalsView: View {
     @State private var data: [DisplayGoal] = []
     
     var body: some View {
-        NavigationView {
-            List {
-                Section(header:
-                            Text("Saving Goals")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                ) {
-                    if data.isEmpty {
-                        Text("No Saving Goals Yet!")
-                            .font(.subheadline)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                    } else {
-                        ScrollView(.horizontal, showsIndicators: false){
-                            HStack{
-                                ForEach(data, id: \.name) { goal in
-                                    let progress = goal.current / goal.target
-                                    VStack(){
-                                        Text(goal.name)
-                                            .frame(alignment: .leading)
-                                        Text("Rp \(goal.target, specifier: "%.0f")")
-                                            .font(.caption)
-                                            .fontWeight(.light)
-                                        CircularProgressView(progress: progress)
-                                    }
-                                    .frame(width: 80, height: 120)
-                                    .padding(3)
-                                    .background(Color.gray.opacity(0.1))
-                                    .cornerRadius(8)
+        
+        List {
+            Section(header:
+                        Text("Saving Goals")
+                .font(.title2)
+                .fontWeight(.bold)
+            ) {
+                if data.isEmpty {
+                    Text("No Saving Goals Yet!")
+                        .font(.subheadline)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                } else {
+                    ScrollView(.horizontal, showsIndicators: false){
+                        HStack{
+                            ForEach(data, id: \.name) { goal in
+                                let progress = goal.current / goal.target
+                                VStack(){
+                                    Text(goal.name)
+                                        .frame(alignment: .leading)
+                                    Text("Rp \(goal.target, specifier: "%.0f")")
+                                        .font(.caption)
+                                        .fontWeight(.light)
+                                    CircularProgressView(progress: progress)
                                 }
+                                .frame(width: 80, height: 120)
+                                .padding(3)
+                                .background(Color.gray.opacity(0.1))
+                                .cornerRadius(8)
                             }
                         }
                     }
                 }
-                .listRowSeparator(.hidden)
             }
-            .listStyle(.plain)
-            .onAppear(){
-                fetchSavingGoalsTotalAmount()
-            }
-            .navigationTitle("Goals")
+            .listRowSeparator(.hidden)
+        }
+        .listStyle(.plain)
+        .onAppear(){
+            fetchSavingGoalsTotalAmount()
+            
         }
     }
     
