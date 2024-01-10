@@ -34,13 +34,27 @@ struct PersistenceController {
         newBudget.targetName = "Emergency Fund"
         newBudget.targetDescription = "Save up for emergency fund"
         
+        let newBudget2 = SavingGoals(context: viewContext)
+        newBudget2.id = UUID()
+        newBudget2.amount = 100000
+        newBudget2.targetName = "Stocks fund"
+        newBudget2.targetDescription = "Save up to get rich"
+        
         let transactionForBudget = TransactionLog(context: viewContext)
         transactionForBudget.id = UUID()
-        transactionForBudget.amount = 50000.200
+        transactionForBudget.amount = 50000
         transactionForBudget.timestamp = Date()
         transactionForBudget.activityTitle = "Bank Deposit for Emergency Fund"
         transactionForBudget.activityDescription = "Just saving up"
         transactionForBudget.budget_fk = newBudget
+        
+        let transactionForBudget2 = TransactionLog(context: viewContext)
+        transactionForBudget2.id = UUID()
+        transactionForBudget2.amount = 20000
+        transactionForBudget2.timestamp = Date()
+        transactionForBudget2.activityTitle = "number 2"
+        transactionForBudget2.activityDescription = "Just saving up"
+        transactionForBudget2.budget_fk = newBudget
 
         
         do {
