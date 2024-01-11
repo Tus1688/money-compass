@@ -21,6 +21,8 @@ struct NewSheetView: View {
     @State private var showAlert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    @Binding var fetchTrigger: Bool
+    
     var body: some View {
         NavigationView {
             VStack{
@@ -84,6 +86,7 @@ struct NewSheetView: View {
                     } else {
                         HandleAddNewTransaction()
                     }
+                    fetchTrigger.toggle()
                 }
             )
         }
@@ -138,7 +141,13 @@ struct NewSheetView: View {
     }
 }
 
+private struct previewNewSheetView: View {
+    @State private var fetchTrigger = false
+    var body: some View {
+        NewSheetView(fetchTrigger: $fetchTrigger)
+    }
+}
 
 #Preview {
-    NewSheetView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    previewNewSheetView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

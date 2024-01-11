@@ -11,6 +11,7 @@ struct SummaryView: View {
     @State private var showProfileSettings = false
     @State private var firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
     @State private var lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
+    @Binding var fetchTrigger: Bool
     
     var body: some View {
         VStack() {
@@ -33,7 +34,7 @@ struct SummaryView: View {
             .padding(.horizontal)
             
             RecentTransactions()
-            SavingGoalsView()
+            SavingGoalsView(fetchTrigger: $fetchTrigger)
         }
         .sheet(isPresented: $showProfileSettings) {
             NavigationStack {
@@ -46,6 +47,13 @@ struct SummaryView: View {
     }
 }
 
+private struct previewSummaryView: View {
+    @State private var fetchTrigger = false
+    var body: some View {
+        SummaryView(fetchTrigger: $fetchTrigger)
+    }
+}
+
 #Preview {
-    SummaryView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    previewSummaryView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
