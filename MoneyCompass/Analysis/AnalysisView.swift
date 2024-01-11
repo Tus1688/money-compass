@@ -15,42 +15,18 @@ struct AnalysisView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     var body: some View {
-        NavigationStack{
-            VStack{
-                HStack {
-                    Text("This Month")
-                        .font(.largeTitle.bold())
-                    Spacer()
-                    Image(systemName: "calendar")
-                        .font(.largeTitle.bold())
-                        .foregroundStyle(Color.primary)
-                }
-                .padding(.top, 36)
-                GroupBox("Daily Expenses"
-                ) {
-                    DailyExpensesView()
-                        .frame(maxHeight: 150)
-                }
-                HStack{
-                    GroupBox("Saving Goal"
-                    ) {
-                        CircularProgressView(progress: SavingGoal)
-                        
-                    }
-                    GroupBox("Budget"
-                    ) {
-                        CircularProgressView(progress: 0.5)
-                        
-                    }
-                }
-                GroupBox("Top Expenses"
-                ) {
-                    TopExpensesView()
-                }
-            }
-            Spacer()
+        
+        Section(header: Text("Daily Expenses")) {
+            DailyExpensesView()
+                .padding(.top,8)
+                .frame(height: 250)
         }
-        .padding(.horizontal)
+        .headerProminence(.increased)
+        Section(header: Text("Saving Goals")) {
+            CircularProgressView(progress: SavingGoal)
+                .frame(width: .infinity, height: 150, alignment: .center)
+        }
+        .headerProminence(.increased)
         .onAppear {
             fetchSavingGoalsTotalAmount()
         }
@@ -58,10 +34,10 @@ struct AnalysisView: View {
     
     private func fetchSavingGoalsTotalAmount() {
         guard let savingGoals = fetchAllSavingGoals() else { return }
-
+        
         var currentSavingGoalTotal = 0.0
         var targetSavingGoalTotal = 0.0
-
+        
         for savingGoal in savingGoals {
             // Access associated TransactionLogs through the inverse relationship
             if let transactionLogs = savingGoal.budgetlog_fk?.allObjects as? [TransactionLog] {
@@ -69,7 +45,7 @@ struct AnalysisView: View {
                 let totalAmount = transactionLogs.reduce(0.0) { $0 + $1.amount }
                 currentSavingGoalTotal += totalAmount
                 // Accumulate the target amount
-                targetSavingGoalTotal += savingGoal.amount 
+                targetSavingGoalTotal += savingGoal.amount
             }
         }
         
@@ -80,7 +56,7 @@ struct AnalysisView: View {
             SavingGoal = 0.0
         }
     }
-
+    
     
     private func fetchAllSavingGoals() -> [SavingGoals]? {
         // Assuming you have access to your managed object context

@@ -19,29 +19,39 @@ struct TransactionView: View {
     @State private var searchTransaction: String = ""
     var body: some View {
         NavigationStack{
-            ScrollView{
+            List{
                 ForEach(transactionLogs.filter {
                     searchTransaction.isEmpty ? true : $0.activityTitle!.localizedCaseInsensitiveContains(searchTransaction)
                 }) { transaction in
-                    GroupBox(transaction.activityTitle!){
-                        HStack{
-                            VStack(alignment: .leading) {
-                                Text(transaction.activityDescription ?? "No Description")
-                                    .font(.caption)
-                            }
-                            Spacer()
-                            VStack(alignment: .trailing){
-                                Text(currencyFormatter.string(from: transaction.amount as NSNumber)!)
-                                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                                    .font(.footnote)
-                                Text(transaction.timestamp!.formatted())
-                                    .font(.caption)
-                            }
+                    
+                    HStack{
+                        VStack(alignment: .leading) {
+                            Text(transaction.activityDescription ?? "No Title")
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                            Text(transaction.activityDescription ?? "No Description")
+                                .font(.caption)
+                        }
+                        Spacer()
+                        VStack(alignment: .trailing){
+                            Text(currencyFormatter.string(from: transaction.amount as NSNumber)!)
+                                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                .font(.footnote)
+                            Text(transaction.timestamp!.formatted())
+                                .font(.caption)
                         }
                     }
-                    .padding(.horizontal)
                 }
-                Spacer()
+                .onDelete(perform: { indexSet in
+                    for index in indexSet {
+                        viewContext.delete(transactionLogs[index])
+                    }
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                })
             }
             .navigationTitle("All Transactions")
             .searchable(text: $searchTransaction)
