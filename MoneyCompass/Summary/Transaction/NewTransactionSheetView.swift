@@ -46,6 +46,7 @@ struct NewTransactionSheetView: View {
                 }
                 Section(header: Text("Amount")) {
                     TextField("Amount", value: $newTransaction.amount, format: .number)
+                    
                         .keyboardType(.decimalPad)
                 }
             }

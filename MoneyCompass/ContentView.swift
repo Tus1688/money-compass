@@ -29,20 +29,10 @@ struct ContentView: View {
                         Image(systemName: "chart.bar.fill")
                     }
                     .tag(0)
-//                AnalysisView()
-//                    .tabItem {
-//                        Text("Analysis")
-//                        Image(systemName: "chart.pie")
-//                    }.tag(1)
                 Text("")
                     .tabItem {
                         Image(systemName: "plus.circle")
                     }.tag(1)
-//                SavingsView()
-//                    .tabItem {
-//                        Text("Transaction")
-//                        Image(systemName: "tray.2")
-//                    }.tag(3)
                 ProfileView()
                     .tabItem {
                         Text("Profile")

@@ -18,65 +18,62 @@ struct DisplayGoal: Identifiable {
 
 struct SavingGoalsView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @State private var selectedGoal: DisplayGoal? = nil
     @State private var data: [DisplayGoal] = []
     
     @Binding var fetchTrigger: Bool
     
     var body: some View {
-        
-        List {
-            Section(header:
-                        Text("Saving Goals")
-                .font(.title2)
-                .fontWeight(.bold)
-            ) {
-                if data.isEmpty {
-                    Text("No Saving Goals Yet!")
-                        .font(.subheadline)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                } else {
-                    ScrollView(.horizontal, showsIndicators: false){
-                        HStack{
-                            ForEach(data, id: \.id) { goal in
-                                let progress = goal.current / goal.target
-                                VStack{
-                                    Text(goal.name)
-                                        .frame(alignment: .leading)
-                                    Text("Rp \(goal.target, specifier: "%.0f")")
-                                        .font(.caption)
-                                        .fontWeight(.light)
-                                    CircularProgressView(progress: progress)
-                                }
-                                .frame(width: 80, height: 120)
-                                .padding(3)
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(8)
-                                .onTapGesture {
-                                    selectedGoal = goal
-                                }
+        ZStack{
+            if data.isEmpty {
+                Text("No Saving Goals Yet!")
+                    .font(.subheadline)
+                    .frame(maxWidth: .infinity, alignment: .center)
+            } else {
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                        ForEach(data, id: \.id) { goal in
+                            let progress = goal.current / goal.target
+                            VStack{
+                                Text(goal.name)
+                                    .frame(alignment: .leading)
+                                Text("Rp \(goal.target, specifier: "%.0f")")
+                                    .font(.caption)
+                                    .fontWeight(.light)
+                                CircularProgressView(progress: progress)
                             }
-                            .sheet(item: $selectedGoal) { goal in
-                                NewTransactionSheetView(
-                                    goal: goal,
-                                    fetchTrigger: $fetchTrigger
-                                )
+                            .frame(width: 80, height: 120)
+                            .padding(3)
+                            .background(Color.gray.opacity(0.1))
+                            .cornerRadius(8)
+                            .onTapGesture {
+                                selectedGoal = goal
                             }
+                        }
+                        .sheet(item: $selectedGoal) { goal in
+                            NewTransactionSheetView(
+                                goal: goal,
+                                fetchTrigger: $fetchTrigger
+                            )
                         }
                     }
                 }
             }
-            .listRowSeparator(.hidden)
         }
-        .listStyle(.plain)
         .onAppear{
             fetchSavingGoalsTotalAmount()
         }
         .onChange(of: fetchTrigger) {
             fetchSavingGoalsTotalAmount()
         }
+        //            }
+        //            .listRowSeparator(.hidden)
+        //        }
+        //        .listStyle(.plain)
+        
     }
+    
     
     private func fetchSavingGoalsTotalAmount() {
         guard let savingGoals = fetchAllSavingGoals() else { return }

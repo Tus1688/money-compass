@@ -12,11 +12,10 @@ struct SummaryView: View {
     @State private var firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
     @State private var lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
     @Binding var fetchTrigger: Bool
-    
+    @State private var isTransactionSheetPresented = false
     var body: some View {
-        VStack() {
-            // we can't use navigationTitle as the profile settings
-            // button will be pushed to top right of the screen
+        VStack{
+            
             HStack {
                 Text("Hello, \(firstName)")
                     .font(.largeTitle.bold())
@@ -32,16 +31,51 @@ struct SummaryView: View {
             }
             .padding(.top, 36)
             .padding(.horizontal)
-            
-            RecentTransactions()
-            SavingGoalsView(fetchTrigger: $fetchTrigger)
-        }
-        .sheet(isPresented: $showProfileSettings) {
-            NavigationStack {
-                ProfileView()
-                    .navigationBarItems(trailing: Button("Done") {
-                        showProfileSettings = false
+            //                Section("Wds"){
+            ////                    DailyExpensesView()
+            //                    RecentTransactions()
+            //
+            //                }
+            //                List {
+            //                    Text("Daily Expenses")
+            //                        .font(.title2)
+            //                        .fontWeight(.bold)
+            //
+            //                    SavingGoalsView(fetchTrigger: $fetchTrigger)
+            //                }
+            List {
+                AnalysisView()
+                Section(header:HStack{
+                    Text("Recent Transaction")
+                    Spacer()
+                    Button(action: {
+                        isTransactionSheetPresented.toggle()
+                    }, label: {
+                        Image(systemName: "ellipsis.circle")
+                            .font(.title2)
                     })
+                } ) {
+                    RecentTransactions()
+                }
+                .headerProminence(.increased)
+                Section(header: Text("Saving Goals")) {
+                    SavingGoalsView(fetchTrigger: $fetchTrigger)
+                }
+                .headerProminence(.increased)
+            }
+            .listStyle(.insetGrouped)
+            
+            
+            .sheet(isPresented: $isTransactionSheetPresented){
+                TransactionView()
+            }
+            .sheet(isPresented: $showProfileSettings) {
+                NavigationStack {
+                    ProfileView()
+                        .navigationBarItems(trailing: Button("Done") {
+                            showProfileSettings = false
+                        })
+                }
             }
         }
     }
