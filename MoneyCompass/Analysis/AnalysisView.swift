@@ -34,7 +34,7 @@ struct AnalysisView: View {
                 HStack{
                     GroupBox("Saving Goal"
                     ) {
-                        CircularProgressView(progress: 0.3)
+                        CircularProgressView(progress: SavingGoal)
                         
                     }
                     GroupBox("Budget"
