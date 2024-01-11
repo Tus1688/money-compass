@@ -55,13 +55,13 @@ struct NewSheetView: View {
                         }
                         Section(header: Text("Category")) {
                             Picker("Category", selection: $newTransaction.category) {
-                                Text("General")
-                                Text("Food")
-                                Text("Transportation")
-                                Text("Entertainment")
-                                Text("Education")
-                                Text("Health")
-                                Text("Others")
+                                Text("General").tag("General")
+                                Text("Food").tag("Food")
+                                Text("Transportation").tag("Transportation")
+                                Text("Entertainment").tag("Entrainment")
+                                Text("Education").tag("Education")
+                                Text("Health").tag("Health")
+                                Text("Others").tag("Others")
                             }
                         }
                         Section(header: Text("Amount")) {
