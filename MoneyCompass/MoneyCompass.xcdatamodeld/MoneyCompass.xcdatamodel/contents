@@ -11,6 +11,7 @@
         <attribute name="activityDescription" optional="YES" attributeType="String"/>
         <attribute name="activityTitle" optional="YES" attributeType="String"/>
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="budget_fk" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavingGoals" inverseName="budgetlog_fk" inverseEntity="SavingGoals"/>
