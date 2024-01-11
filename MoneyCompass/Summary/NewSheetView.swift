@@ -10,9 +10,7 @@ private struct GoalInput {
     var name: String = ""
     var description: String = ""
     var amount: Double = 0
-    var category: String = ""
 }
-
 
 struct NewSheetView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -53,6 +51,17 @@ struct NewSheetView: View {
                         Section(header: Text("Transaction Description")) {
                             TextField("Optional", text: $newTransaction.description)
                         }
+                        Section(header: Text("Category")) {
+                            Picker("Category", selection: $newTransaction.category) {
+                                Text("General")
+                                Text("Food")
+                                Text("Transportation")
+                                Text("Entertainment")
+                                Text("Education")
+                                Text("Health")
+                                Text("Others")
+                            }
+                        }
                         Section(header: Text("Amount")) {
                             TextField("Amount", value: $newTransaction.amount, format: .number)
                                 .keyboardType(.decimalPad)
@@ -91,6 +100,7 @@ struct NewSheetView: View {
         transaction.activityDescription = newTransaction.description
         transaction.activityTitle = newTransaction.title
         transaction.amount = newTransaction.amount
+        transaction.category = newTransaction.category
         transaction.timestamp = Date()
         do {
             try viewContext.save()

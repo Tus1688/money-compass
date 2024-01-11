@@ -10,6 +10,7 @@ struct TransactionInput {
     var title: String = ""
     var description: String = ""
     var amount: Double = 0
+    var category: String = ""
 }
 struct NewTransactionSheetView: View {
     @Environment(\.managedObjectContext) private var viewContext
