@@ -18,6 +18,38 @@
             endingLineNumber = "123"
             landmarkName = "body"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "46048779-C6AF-432B-8461-C3DB2AD38FDD - c58c724d5e0cece4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in MoneyCompass.AnimatedNumbersView.body.getter : some"
+                  moduleName = "MoneyCompass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/UC%20Sem%205/Mobile%20Computing/money-compass/MoneyCompass/Summary/AnimatedNumbersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "124"
+                  endingLineNumber = "124"
+                  offsetFromSymbolStart = "39">
+               </Location>
+               <Location
+                  uuid = "46048779-C6AF-432B-8461-C3DB2AD38FDD - c58c724d5e0cece4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in MoneyCompass.AnimatedNumbersView.body.getter : some"
+                  moduleName = "MoneyCompass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/UC%20Sem%205/Mobile%20Computing/money-compass/MoneyCompass/Summary/AnimatedNumbersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "124"
+                  endingLineNumber = "124"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
