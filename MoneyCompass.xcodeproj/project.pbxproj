@@ -10,6 +10,7 @@
 		041125B12B27DAF600287DEA /* AnimatedNumbersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041125B02B27DAF600287DEA /* AnimatedNumbersView.swift */; };
 		042450F72B28B3450070DAB8 /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042450F62B28B3450070DAB8 /* ProfileSettingView.swift */; };
 		042F05DC2B4DAD3200B3B288 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F05DB2B4DAD3200B3B288 /* CircularProgressView.swift */; };
+		04452F362B4EF73C009E9411 /* BarProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04452F352B4EF73C009E9411 /* BarProgressStyle.swift */; };
 		0477EFC12B204921006968C3 /* MoneyCompassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFC02B204921006968C3 /* MoneyCompassApp.swift */; };
 		0477EFC32B204921006968C3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477EFC22B204921006968C3 /* ContentView.swift */; };
 		0477EFC52B204923006968C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0477EFC42B204923006968C3 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		041125B02B27DAF600287DEA /* AnimatedNumbersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedNumbersView.swift; sourceTree = "<group>"; };
 		042450F62B28B3450070DAB8 /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
 		042F05DB2B4DAD3200B3B288 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		04452F352B4EF73C009E9411 /* BarProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarProgressStyle.swift; sourceTree = "<group>"; };
 		0477EFBD2B204921006968C3 /* MoneyCompass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyCompass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0477EFC02B204921006968C3 /* MoneyCompassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyCompassApp.swift; sourceTree = "<group>"; };
 		0477EFC22B204921006968C3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				042F05DB2B4DAD3200B3B288 /* CircularProgressView.swift */,
+				04452F352B4EF73C009E9411 /* BarProgressStyle.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				042F05DC2B4DAD3200B3B288 /* CircularProgressView.swift in Sources */,
 				0477EFDC2B2456EC006968C3 /* OnBoardingCardView.swift in Sources */,
 				0477EFC32B204921006968C3 /* ContentView.swift in Sources */,
+				04452F362B4EF73C009E9411 /* BarProgressStyle.swift in Sources */,
 				048D7C4B2B2DD3DD00D11F89 /* NewSavingView.swift in Sources */,
 				0477EFC12B204921006968C3 /* MoneyCompassApp.swift in Sources */,
 				0477EFCD2B204923006968C3 /* MoneyCompass.xcdatamodeld in Sources */,

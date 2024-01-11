@@ -58,48 +58,21 @@ struct DailyExpensesView: View {
     }
     
     func processData(_ fetchedData: [TransactionLog]) -> [ProfitByCategory] {
-        var profitByCategory: [String: Double] = [:]
-        var profitByDate: [Date: Double] = [:] // Dictionary to hold profit by date
-        
-        let calendar = Calendar.current
+        var res: [ProfitByCategory] = []
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
         
         for transaction in fetchedData {
-            guard let timestamp = transaction.timestamp else { continue }
-            
-            let category = "General"
-            
-            if let existingProfit = profitByCategory[category] {
-                profitByCategory[category] = existingProfit + transaction.amount
-            } else {
-                profitByCategory[category] = transaction.amount
-            }
-            
-            let dateComponents = calendar.dateComponents([.day, .month, .year], from: timestamp)
-            if let date = calendar.date(from: dateComponents) {
-                if let existingProfit = profitByDate[date] {
-                    profitByDate[date] = existingProfit + transaction.amount
-                } else {
-                    profitByDate[date] = transaction.amount
-                }
-            }
+            let profit = transaction.amount
+            let productCategory = transaction.category ?? "General"
+            let day = dateFormatter.string(from: transaction.timestamp!)
+            res.append(ProfitByCategory(profit: profit, productCategory: productCategory, day: day))
         }
         
-        var processedData: [ProfitByCategory] = []
-            for (date, profit) in profitByDate {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "dd/MM/yyyy"
-                let dateString = dateFormatter.string(from: date)
-                
-                processedData.append(ProfitByCategory(profit: profit, productCategory: "General", day: dateString))
-            }
-            
-            processedData.sort { (first: ProfitByCategory, second: ProfitByCategory) -> Bool in
-                return first.day < second.day
-            }
-            
-            return processedData
+        // sort by day
+        res.sort(by: { $0.day < $1.day })
+        return res
     }
-
 }
 
 #Preview {
