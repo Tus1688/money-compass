@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
+import CoreData
+
 struct TransactionInput {
     var title: String = ""
     var description: String = ""
     var amount: Double = 0
+    var category: String = ""
 }
+
 struct NewTransactionSheetView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode
@@ -19,6 +23,7 @@ struct NewTransactionSheetView: View {
     @State private var showAlert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    @Binding var fetchTrigger: Bool
     var body: some View {
         NavigationView{
             Form {
@@ -27,6 +32,17 @@ struct NewTransactionSheetView: View {
                 }
                 Section(header: Text("Transaction Description")) {
                     TextField("Optional", text: $newTransaction.description)
+                }
+                Section(header: Text("Category")) {
+                    Picker("Category", selection: $newTransaction.category) {
+                        Text("General").tag("General")
+                        Text("Food").tag("Food")
+                        Text("Transportation").tag("Transportation")
+                        Text("Entertainment").tag("Entrainment")
+                        Text("Education").tag("Education")
+                        Text("Health").tag("Health")
+                        Text("Others").tag("Others")
+                    }
                 }
                 Section(header: Text("Amount")) {
                     TextField("Amount", value: $newTransaction.amount, format: .number)
@@ -40,6 +56,7 @@ struct NewTransactionSheetView: View {
                 },
                 trailing: Button("Save") {
                     HandleAddNewTransaction()
+                    fetchTrigger.toggle()
                 }
             )
         }
@@ -51,8 +68,10 @@ struct NewTransactionSheetView: View {
             alertMessage = "Please enter a title for this transaction"
             return
         }
+        
         let transaction = TransactionLog(context: viewContext)
-//        TODO: INSERT SAVING GOALS FOREIGN KEY HERE
+        let goal = fetchGoal()
+        transaction.budget_fk = goal
         transaction.id = UUID()
         transaction.activityDescription = newTransaction.description
         transaction.activityTitle = newTransaction.title
@@ -64,6 +83,18 @@ struct NewTransactionSheetView: View {
         } catch {
             print("Error saving new transaction: \(error)")
         }
+    }
+    
+    private func fetchGoal() -> SavingGoals {
+        let request: NSFetchRequest<SavingGoals> = SavingGoals.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", goal.id as CVarArg)
+        do {
+            let results = try viewContext.fetch(request)
+            return results[0]
+        } catch {
+            print("Error fetching goal: \(error)")
+        }
+        return SavingGoals()
     }
 }
 

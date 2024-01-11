@@ -10,9 +10,7 @@ private struct GoalInput {
     var name: String = ""
     var description: String = ""
     var amount: Double = 0
-    var category: String = ""
 }
-
 
 struct NewSheetView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -23,6 +21,8 @@ struct NewSheetView: View {
     @State private var showAlert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    @Binding var fetchTrigger: Bool
+    
     var body: some View {
         NavigationView {
             VStack{
@@ -53,6 +53,17 @@ struct NewSheetView: View {
                         Section(header: Text("Transaction Description")) {
                             TextField("Optional", text: $newTransaction.description)
                         }
+                        Section(header: Text("Category")) {
+                            Picker("Category", selection: $newTransaction.category) {
+                                Text("General").tag("General")
+                                Text("Food").tag("Food")
+                                Text("Transportation").tag("Transportation")
+                                Text("Entertainment").tag("Entrainment")
+                                Text("Education").tag("Education")
+                                Text("Health").tag("Health")
+                                Text("Others").tag("Others")
+                            }
+                        }
                         Section(header: Text("Amount")) {
                             TextField("Amount", value: $newTransaction.amount, format: .number)
                                 .keyboardType(.decimalPad)
@@ -75,6 +86,7 @@ struct NewSheetView: View {
                     } else {
                         HandleAddNewTransaction()
                     }
+                    fetchTrigger.toggle()
                 }
             )
         }
@@ -91,6 +103,7 @@ struct NewSheetView: View {
         transaction.activityDescription = newTransaction.description
         transaction.activityTitle = newTransaction.title
         transaction.amount = newTransaction.amount
+        transaction.category = newTransaction.category
         transaction.timestamp = Date()
         do {
             try viewContext.save()
@@ -128,7 +141,13 @@ struct NewSheetView: View {
     }
 }
 
+private struct previewNewSheetView: View {
+    @State private var fetchTrigger = false
+    var body: some View {
+        NewSheetView(fetchTrigger: $fetchTrigger)
+    }
+}
 
 #Preview {
-    NewSheetView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    previewNewSheetView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

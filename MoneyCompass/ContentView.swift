@@ -13,6 +13,9 @@ struct ContentView: View {
     // check if user has seen onboarding and fill their personal data
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     
+    // fetchTrigger for refreshing savingGoals view on new goal added
+    @State private var fetchTrigger = false
+    
     var body: some View {
         if !hasCompletedOnboarding {
             OnBoardingView(onboardingCompleted: {
@@ -20,7 +23,7 @@ struct ContentView: View {
             })
         } else {
             TabView(selection: $selectedTab) {
-                SummaryView()
+                SummaryView(fetchTrigger: $fetchTrigger)
                     .tabItem {
                         Text("Summary")
                         Image(systemName: "chart.bar.fill")
@@ -56,7 +59,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $isAddNewGoalSheetPresented) {
-                NewSheetView()
+                NewSheetView(fetchTrigger: $fetchTrigger)
             }
 
             .edgesIgnoringSafeArea(.bottom)

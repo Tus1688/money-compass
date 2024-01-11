@@ -22,6 +22,8 @@ struct SavingGoalsView: View {
     @State private var selectedGoal: DisplayGoal? = nil
     @State private var data: [DisplayGoal] = []
     
+    @Binding var fetchTrigger: Bool
+    
     var body: some View {
         
         List {
@@ -57,7 +59,8 @@ struct SavingGoalsView: View {
                             }
                             .sheet(item: $selectedGoal) { goal in
                                 NewTransactionSheetView(
-                                    goal: goal
+                                    goal: goal,
+                                    fetchTrigger: $fetchTrigger
                                 )
                             }
                         }
@@ -66,11 +69,12 @@ struct SavingGoalsView: View {
             }
             .listRowSeparator(.hidden)
         }
-
         .listStyle(.plain)
         .onAppear{
             fetchSavingGoalsTotalAmount()
-            
+        }
+        .onChange(of: fetchTrigger) {
+            fetchSavingGoalsTotalAmount()
         }
     }
     
@@ -105,6 +109,13 @@ struct SavingGoalsView: View {
     }
 }
 
+private struct previewSavingGoalsView: View {
+    @State var fetchTrigger: Bool = false
+    var body: some View {
+        SavingGoalsView(fetchTrigger: $fetchTrigger)
+    }
+}
+
 #Preview {
-    SavingGoalsView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    previewSavingGoalsView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
