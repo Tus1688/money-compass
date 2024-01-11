@@ -59,7 +59,8 @@ struct SavingGoalsView: View {
                             }
                             .sheet(item: $selectedGoal) { goal in
                                 NewTransactionSheetView(
-                                    goal: goal
+                                    goal: goal,
+                                    fetchTrigger: $fetchTrigger
                                 )
                             }
                         }
