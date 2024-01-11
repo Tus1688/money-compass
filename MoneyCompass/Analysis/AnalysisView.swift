@@ -24,7 +24,7 @@ struct AnalysisView: View {
         .headerProminence(.increased)
         Section(header: Text("Saving Goals")) {
             CircularProgressView(progress: SavingGoal)
-                .frame(width: .infinity, height: 150, alignment: .center)
+                .frame(maxWidth: .infinity, maxHeight: 200, alignment: .center)
         }
         .headerProminence(.increased)
         .onAppear {

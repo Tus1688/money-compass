@@ -56,7 +56,6 @@ struct SummaryView: View {
                     })
                 } ) {
                     RecentTransactions()
-                    
                 }
                 .headerProminence(.increased)
                 Section(header: Text("Saving Goals")) {
