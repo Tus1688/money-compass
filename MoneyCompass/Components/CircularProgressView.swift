@@ -30,8 +30,14 @@ struct CircularProgressView: View {
                     .animation(.easeOut, value: progress)
                 
             }
-            Text("\(progress * 100, specifier: "%.0f")%")
-                .fontWeight(.semibold)
+            if progress == 1 {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.title)
+                    .foregroundColor(.accentColor)
+            } else {
+                Text("\(progress * 100, specifier: "%.0f")%")
+                    .fontWeight(.semibold)
+            }
         }
         .padding(3)
     }

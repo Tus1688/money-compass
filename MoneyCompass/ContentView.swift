@@ -26,29 +26,29 @@ struct ContentView: View {
                         Image(systemName: "chart.bar.fill")
                     }
                     .tag(0)
-                AnalysisView()
-                    .tabItem {
-                        Text("Analysis")
-                        Image(systemName: "chart.pie")
-                    }.tag(1)
+//                AnalysisView()
+//                    .tabItem {
+//                        Text("Analysis")
+//                        Image(systemName: "chart.pie")
+//                    }.tag(1)
                 Text("")
                     .tabItem {
                         Image(systemName: "plus.circle")
-                    }.tag(2)
-                SavingsView()
-                    .tabItem {
-                        Text("Transaction")
-                        Image(systemName: "tray.2")
-                    }.tag(3)
+                    }.tag(1)
+//                SavingsView()
+//                    .tabItem {
+//                        Text("Transaction")
+//                        Image(systemName: "tray.2")
+//                    }.tag(3)
                 ProfileView()
                     .tabItem {
                         Text("Profile")
                         Image(systemName: "person.crop.circle")
-                    }.tag(4)
+                    }.tag(2)
             }
             
             .onChange(of: selectedTab) { oldTab , newTab in
-                if selectedTab == 2 {
+                if selectedTab == 1 {
                     self.isAddNewGoalSheetPresented = true
                     self.selectedTab = oldTab
                 } else if (isAddNewGoalSheetPresented == false) {
@@ -56,8 +56,9 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $isAddNewGoalSheetPresented) {
-                NewGoalView()
+                NewSheetView()
             }
+
             .edgesIgnoringSafeArea(.bottom)
             
             // development purposes only okay! (to reset userDefaults)

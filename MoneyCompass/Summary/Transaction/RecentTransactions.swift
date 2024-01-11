@@ -19,6 +19,12 @@ extension Array {
     }
     
 }
+let currencyFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .currency
+    return formatter
+}()
+
 struct RecentTransactions: View {
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -27,13 +33,7 @@ struct RecentTransactions: View {
         animation: .default
     )
     private var transactionLogs: FetchedResults<TransactionLog>
-    
-    private let currencyFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        return formatter
-    }()
-    
+    @State var isTransactionSheetPresented = false
     var body: some View {
         NavigationStack {
             TabView{
@@ -44,13 +44,15 @@ struct RecentTransactions: View {
                             .fontWeight(.bold)
                         
                         Spacer()
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                        Button(action: {
+                            isTransactionSheetPresented.toggle()
+                        }, label: {
                             Image(systemName: "ellipsis.circle")
                                 .font(.title2)
                         })
                     }) {
                         if (transactionLogs.count == 0) {
-                           
+                            
                             Text("No Saving Goals Yet!")
                                 .font(.subheadline)
                                 .frame(maxWidth: .infinity, alignment: .center)
@@ -58,9 +60,9 @@ struct RecentTransactions: View {
                             ForEach(transactionLogs) { transaction in
                                 HStack{
                                     VStack(alignment: .leading) {
-                                        Text(transaction.activityTitle!)
+                                        Text(transaction.activityTitle ?? "No Title")
                                             .font(.subheadline)
-                                        Text(transaction.activityDescription!)
+                                        Text(transaction.activityDescription ?? "No Description")
                                             .font(.caption)
                                     }
                                     Spacer()
@@ -81,6 +83,9 @@ struct RecentTransactions: View {
                 
             }
             .tabViewStyle(.page(indexDisplayMode: .automatic))
+            .sheet(isPresented: $isTransactionSheetPresented){
+                TransactionView()
+            }
         }
     }
 }
