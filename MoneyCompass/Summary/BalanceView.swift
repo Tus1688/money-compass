@@ -57,10 +57,6 @@ struct BalanceView: View {
                     .cornerRadius(3)
             }
         }
-        .padding()
-        .background(Color.gray.opacity(0.5))
-        .cornerRadius(10)
-        .padding()
         .onAppear(perform: {
             var totalAmount: Double = 0
             for transaction in transactionLogs {
