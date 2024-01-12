@@ -15,7 +15,6 @@ struct SummaryView: View {
     @State private var isTransactionSheetPresented = false
     var body: some View {
         VStack{
-            
             HStack {
                 Text("Hello, \(firstName)")
                     .font(.largeTitle.bold())
@@ -44,6 +43,8 @@ struct SummaryView: View {
             //                    SavingGoalsView(fetchTrigger: $fetchTrigger)
             //                }
             List {
+                    BalanceView()
+                
                 AnalysisView(fetchTrigger: $fetchTrigger)
                 Section(header:HStack{
                     Text("Recent Transaction")
