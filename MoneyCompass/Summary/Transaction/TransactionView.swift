@@ -26,7 +26,7 @@ struct TransactionView: View {
                     
                     HStack{
                         VStack(alignment: .leading) {
-                            Text(transaction.activityDescription ?? "No Title")
+                            Text(transaction.activityTitle ?? "No Title")
                                 .font(.headline)
                                 .fontWeight(.semibold)
                             Text(transaction.activityDescription ?? "No Description")
