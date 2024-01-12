@@ -17,6 +17,8 @@ struct TransactionView: View {
     private var transactionLogs: FetchedResults<TransactionLog>
     @State var isTransactionSheetPresented = false
     @State private var searchTransaction: String = ""
+    @Binding var fetchTrigger: Bool
+    
     var body: some View {
         NavigationStack{
             List{
@@ -48,6 +50,7 @@ struct TransactionView: View {
                     }
                     do {
                         try viewContext.save()
+                        fetchTrigger.toggle()
                     } catch {
                         print(error.localizedDescription)
                     }
@@ -66,8 +69,4 @@ struct TransactionView: View {
             }
         }
     }
-}
-
-#Preview {
-    TransactionView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

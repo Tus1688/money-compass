@@ -67,7 +67,7 @@ struct SummaryView: View {
             
             
             .sheet(isPresented: $isTransactionSheetPresented){
-                TransactionView()
+                TransactionView(fetchTrigger: $fetchTrigger)
             }
             .sheet(isPresented: $showProfileSettings) {
                 NavigationStack {
