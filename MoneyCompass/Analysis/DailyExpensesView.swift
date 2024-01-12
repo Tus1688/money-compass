@@ -18,7 +18,7 @@ struct DailyExpensesView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @State private var data: [ProfitByCategory] = []
-    
+    @Binding var fetchTrigger: Bool
     
     var body: some View {
         Chart(data, id: \.day) {
@@ -29,6 +29,9 @@ struct DailyExpensesView: View {
             .foregroundStyle(by: .value("Product Category", $0.productCategory))
         }
         .onAppear {
+            fetchData()
+        }
+        .onChange(of: fetchTrigger) {
             fetchData()
         }
     }
@@ -75,6 +78,14 @@ struct DailyExpensesView: View {
     }
 }
 
+private struct previewDailyExpensesView: View {
+    @State private var fetchTrigger = false
+    
+    var body: some View {
+        DailyExpensesView(fetchTrigger: $fetchTrigger)
+    }
+}
+
 #Preview {
-    DailyExpensesView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    previewDailyExpensesView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

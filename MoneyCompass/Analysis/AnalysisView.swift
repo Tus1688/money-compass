@@ -13,11 +13,12 @@ struct AnalysisView: View {
     @State private var SavingGoal = 0.0
     @State private var BudgetAndSpending = 0.0
     @Environment(\.managedObjectContext) private var viewContext
+    @Binding var fetchTrigger: Bool
     
     var body: some View {
         
         Section(header: Text("Daily Expenses")) {
-            DailyExpensesView()
+            DailyExpensesView(fetchTrigger: $fetchTrigger)
                 .padding(.top,8)
                 .frame(height: 250)
         }
@@ -28,6 +29,9 @@ struct AnalysisView: View {
         }
         .headerProminence(.increased)
         .onAppear {
+            fetchSavingGoalsTotalAmount()
+        }
+        .onChange(of: fetchTrigger) {
             fetchSavingGoalsTotalAmount()
         }
     }
@@ -71,6 +75,13 @@ struct AnalysisView: View {
     }
 }
 
+private struct previewAnalysisView: View {
+    @State private var fetchTrigger = false
+    var body: some View {
+        AnalysisView(fetchTrigger: $fetchTrigger)
+    }
+}
+
 #Preview {
-    AnalysisView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    previewAnalysisView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
