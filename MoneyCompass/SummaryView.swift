@@ -44,6 +44,7 @@ struct SummaryView: View {
             //                    SavingGoalsView(fetchTrigger: $fetchTrigger)
             //                }
             List {
+                BalanceView()
                 AnalysisView(fetchTrigger: $fetchTrigger)
                 Section(header:HStack{
                     Text("Recent Transaction")
