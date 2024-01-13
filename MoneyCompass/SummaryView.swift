@@ -43,8 +43,7 @@ struct SummaryView: View {
             //                    SavingGoalsView(fetchTrigger: $fetchTrigger)
             //                }
             List {
-                    BalanceView()
-                
+                BalanceView()
                 AnalysisView(fetchTrigger: $fetchTrigger)
                 Section(header:HStack{
                     Text("Recent Transaction")
@@ -68,7 +67,7 @@ struct SummaryView: View {
             
             
             .sheet(isPresented: $isTransactionSheetPresented){
-                TransactionView()
+                TransactionView(fetchTrigger: $fetchTrigger)
             }
             .sheet(isPresented: $showProfileSettings) {
                 NavigationStack {
