@@ -15,7 +15,6 @@ struct SummaryView: View {
     @State private var isTransactionSheetPresented = false
     var body: some View {
         VStack{
-            
             HStack {
                 Text("Hello, \(firstName)")
                     .font(.largeTitle.bold())
